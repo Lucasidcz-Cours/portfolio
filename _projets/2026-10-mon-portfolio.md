@@ -24,7 +24,8 @@ Seul, en salle de formation. Un compte GitHub gratuit, le modèle de portfolio d
 
 ## Productions et preuves
 
-![Ce que montre la capture]({{ "/images/IMAGETEST.png" | relative_url }})
+![Test d'erreur html]({{ "/images/htmlcheck.png" | relative_url }})
+![Test d'accesbilitél]({{ "/images/lighthouse.png" | relative_url }})
 
 ## Ce que j'en retiens
 
