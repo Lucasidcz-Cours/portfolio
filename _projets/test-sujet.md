@@ -3,7 +3,7 @@ title: "Intitulé du projet"
 date: 2026-10-07
 cadre: "Atelier de professionnalisation"
 resume: "Test de publication de projet"
-competences: [c2, c3]
+competences: []
 ---
 
 ## Contexte
