@@ -24,9 +24,7 @@ Seul, en salle de formation. Un compte GitHub gratuit, le modèle de portfolio d
 
 ## Productions et preuves
 
-- L'adresse publique du site.
-- Le dépôt et son historique des modifications.
-- Le score d'accessibilité relevé.
+![Ce que montre la capture]({{ "/images/IMAGETEST.png" | relative_url }})
 
 ## Ce que j'en retiens
 
