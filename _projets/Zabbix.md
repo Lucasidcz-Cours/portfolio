@@ -14,11 +14,19 @@ Simulation de cas de surveillance de température de serveur.
 
 PC windows 10, Docker Desktop, Powershell (WSL), Pyton 3.12
 
+La solution repose sur plusieurs conteneurs Docker :
+
+MySQL 8.0 : stocke la configuration Zabbix, l'historique des mesures et les événements.
+Zabbix Server : collecte les données provenant des agents, des équipements SNMP et des services HTTP.
+Zabbix Web : interface d'administration accessible depuis un navigateur sur le port 8080.
+Agent Linux : conteneur simulant un serveur Linux supervisé.
+Switch SNMP : conteneur simulant un commutateur administrable surveillé via le protocole SNMP.
+
 ## Description de l'activité
 
 1. Installer Zabbix en conteneurs et y déclarer 3 hôtes du poste de travail (Linux, Windows, switch en SNMP).
 
-2. Simuler la sonde de température ESP32 par un service Python et lire sa valeur dans Zabbix. On ajoute également un élément de type HTTP agent qui interroge http://host.docker.internal:5000/temperature à intervalle d'une minute.
+2. Configurer service Python expose l'URL /température, qui est lue depuis un fichier texte valeur.txt. Zabbix interroge automatiquement cette URL grâce à un agent HTTP.
 
 3. Fixer un seuil d'avertissement à 26 °C et un seuil critique à 28 °C, puis éditer le fichier valeur.txt pour les simuler.
 
