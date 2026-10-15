@@ -3,7 +3,7 @@ title: "Sonde température Zabbix via Docker"
 date: 2026-10-14
 cadre: "Atelier de professionnalisation"
 resume: "Simulation et mise en place d'alerte dans l'environnement Zabbix"
-competences: [c1, c2, c5]
+competences: [c1, c2]
 ---
 
 ## Contexte
