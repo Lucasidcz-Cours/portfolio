@@ -30,9 +30,9 @@ Les 3 vm sont dans le même réseau lan10 sur vmware.
 Le serveur GLPI est placé sur le LAN 172.20.1.0/24, le même réseau que le contrôleur de domaine (172.20.1.2). La machine possède une deuxième carte en NAT pour accéder à Internet (téléchargement de GLPI), celle-ci reste en DHCP.
 
 
-* nano /etc/network/interfaces :*
-* allow-hotplug ens33*
-* iface ens33 inet dhcp*
+ nano /etc/network/interfaces :
+ allow-hotplug ens33
+ iface ens33 inet dhcp
 
 # allow-hotplug ens34
 # iface ens34 inet static
