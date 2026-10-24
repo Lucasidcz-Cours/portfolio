@@ -1,152 +1,52 @@
----
-title: Mise en place d'une plateforme de gestion d'incident
-date: 24/10/2026
-cadre: Projet de support et mise à disposition de service informatique 
-resume: Mise en place de plateforme de gestion d'incident GLPI
+title: Mise en place d'une plateforme de gestion d'incident 
+date: 24/10/2026 cadre: Projet de support et mise à disposition de service informatique 
+resume: Mise en place de plateforme de gestion d'incident GLPI 
 competences: [c5,c6]
----
-
-##  Contexte
-
-L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant, je présenterais ici la base utilisée pour la simulation d'incident.
 
 
-##  Conditions et moyens
+Contexte
+L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant. Je présenterai ici l'infrastructure utilisée pour la simulation d'incidents à l'aide de GLPI.
 
-Un laptop avec Vmware Workstation, les ISOs Windows Server 2022, Windows 10, debian 12, le plugin Agent GLPI
+Conditions et moyens
+Un ordinateur portable
+VMware Workstation
+ISO Windows Server 2022
+ISO Windows 10
+ISO Debian 12
+GLPI Agent
 
+Machines virtuelles
+Un serveur Active Directory hébergeant le domaine stadiumcompany.local
+Un serveur Debian 12 hébergeant GLPI
+Un poste client Windows joint au domaine
+Les trois machines virtuelles sont connectées au même réseau virtuel VMware : lan10.
 
-3 VM : Un serveur AD hébergeur du domaine stadiumcompany.local, Une debian où on installe GLPI, un client windows joint au domaine pour y accèder
-
-
-Les 3 vm sont dans le même réseau lan10 sur vmware.
-
-
-##  Description de l'activité
-
+Description de l'activité
 1. Configuration de la machine Debian
+Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
 
+La machine possède une seconde carte réseau en NAT permettant l'accès à Internet pour télécharger les paquets nécessaires.
 
-Le serveur GLPI est placé sur le LAN 172.20.1.0/24, le même réseau que le contrôleur de domaine (172.20.1.2). La machine possède une deuxième carte en NAT pour accéder à Internet (téléchargement de GLPI), celle-ci reste en DHCP.
+Configuration du fichier réseau :
 
+nano /etc/network/interfaces
+allow-hotplug ens33
+iface ens33 inet dhcp
 
- nano /etc/network/interfaces :
- allow-hotplug ens33
- iface ens33 inet dhcp
+allow-hotplug ens34
+iface ens34 inet static
+address 172.20.1.7/24Description de l'activité
+1. Configuration de la machine Debian
+Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
 
-# allow-hotplug ens34
-# iface ens34 inet static
-# address 172.20.1.7/24
+La machine possède une seconde carte réseau en NAT permettant l'accès à Internet pour télécharger les paquets nécessaires.
 
-on redémarre les interfaces 
+Configuration du fichier réseau :
 
-# systemctl restart networking 
+nano /etc/network/interfaces
+allow-hotplug ens33
+iface ens33 inet dhcp
 
-J'installe ensuite php, apache (serveur php pour glpi), mariadb (le moteur de base de données que glpi utilisera)
-# apt install apache2 php libapache2-mod-php mariadb-server -y
-
-Je lance enfin le script d'installation mysql :
-
-# mysql_secure installation 
-
-Enter current password for root (enter for none: entree
-
-On nous demande si on veut créer un mot de passe pour le compte root de la base de données. Il faut choisir N. Le compte root de MariaDB est lié à la maintenance du système, nous ne devons pas modifier les méthodes d'authentification configurées pour ce compte. 
-
-Switch to unix_socket authentication [Y/n] n
-
-Change the root password? [Y/n] Y
-New password:root
-Re-enter new password:root
-Password updated successfully!
-
-Je supprime les utilisateurs anonymes, de root, etc...
-Remove anonymous users? [Y/n] Y
-les connexions distantes
-Disallow root login remotely? [Y/n] Y
-La base de test
-Remove test database and access to it? [Y/n] Y
-Recharger les tables de privilèges maintenant
-Reload privilege tables now? [Y/n] Y
-
-
-2. Installation et configuration de GLPI
-
-Il faut installer toutes les extensions php nécessaires : 
-# apt install php-{ldap,apcu,mysql,mbstring,curl,gd,xml,intl,bz2,zip,bcmath} -y
-# systemctl restart apache2
-
-Je crée une base de données qui s’appelle dbglpi
-MariaDB [(none)]> create database dbglpi;
-Query OK, 1 row affected (0.001 sec)
-
-Je crée un utilisateur userglpi et je lui donne tous les privileges sur la bases dbglpi 
-MariaDB [(none)]> grant all privileges on dbglpi.* to userglpi@'localhost' identified by 'userglpi';
-Query OK, 0 rows affected (0.002 sec)
-
-Je recharge les droits
-MariaDB [(none)]> flush privileges;
-Query OK, 0 rows affected (0.001 sec)
-
-Je télécharge GLPI
-# wget https://github.com/glpi-project/glpi/releases/download/11.0.9/glpi-11.0.9.tgz
-
-Je décompresse le fichier téléchargé dans /var/www/html :
-# tar -xzf glpi-11.0.9.tgz -C /var/www/html
-
-Je donne les droits sur le dossier et les sous dossiers ainsi que les fichiers GLPI au compte et au groupe www-data
-# chown -R www-data:www-data /var/www/html/glpi
-# chmod -R 775 /var/www/html/glpi/
-
-Note : A partir de GLPI 11 le serveur apache doit pointer vers /var/www/glpi/public, voir la capture d'écran en bas de page pour le fichier de configuration
-
-Pour accéder à l’interface web de GLPI avec le nom de domaine, je crée sur le serveur DNS du contrôleur de domaine (172.20.1.2), dans la zone stadiumcompany.local, un enregistrement de type A : glpi → 172.20.1.7.
-
-Je crée également d’un fichier pem (Privacy Enhanced Mail (PEM)) contenant un certificat autosigné et une clé privée.
-# make-ssl-cert /usr/share/ssl-cert/ssleay.cnf  /etc/ssl/private/stadiumcompany.pem
-
-Je renseigne le nom d’hôte glpi.stadiumcompany.local, puis les noms alternatifs : DNS:glpi.stadiumcompany.local,IP:172.20.1.7
-
-J'active le module ssl et glpi.conf : 
-# a2enmod ssl
-# systemctl restart apache2
-# a2ensite glpi.conf
-# systemctl reload apache2
-
-
-A partir de là je peux accèder à glpi via une interface web : https://glpi.stadiumcompany.local
-
-J'ai juste à renseigner le serveur sql (localhost), l'utilisateur (userglpi) et son mot de passe, j'utilise la base dbglpi et l'installation est terminée.
-
-3. Mise en place de la simulation d'incident
-Je synchronise GLPI à l'AD via l'annuaire LDAP (Configuration>Authentification>Liaison LDAP, voir la capture)
-
-Je crée 2 utilisateurs (kaiser et césar) que j'importent (utilisateurs>source externe)
-
-Je peux ensuite me connecter via leurs comptes sur glpi dans l'AD stadiumcompany et créer un ticket.
-
-Pour faire remonter un ordinateur, j'active l'inventaire puis j'installe Agent-GLPI et le fait pointer vers https://glpi.stadiumcompany.local/front/inventory.php.
-
-## Productions et preuves
-
-Active Directory
-![Active Directory]({{ "/images/AD.png" | relative_url }})
-Fichier de configuration glpi
-![Fichier de configuration ]({{ "/images/glpiconf.png" | relative_url }})
-Paramètres LDAP
-![Paramètres LDAP]({{ "/images/LDAP.png" | relative_url }})
-Nouveaux utilisateurs AD
-![Users AD]({{ "/images/users import ad.png" | relative_url }})
-Utilisateurs importées
-![Users dans glpi]({{ "/images/users import glpi.png" | relative_url }})
-Création de ticket par Kaiser
-![Ticket crée kaiser]({{ "/images/ticketkaiser.png" | relative_url }})
-Ticket visible par glpi
-![Ticket visible glpi]({{ "/images/ticketkaiser2.png" | relative_url }})
-
-
-## Ce que j'en retiens
-Configuration de GLPI et d'apache, synchronisation via LDAP
-
-Une difficulté rencontrée et la façon dont vous l'avez réglée.
-Apache n'arrivait pas à pointer vers glpi/public, l'inclusion du module rewrite dans le fichier de configuration a permis de fixer ce problème.
+allow-hotplug ens34
+iface ens34 inet static
+address 172.20.1.7/24
