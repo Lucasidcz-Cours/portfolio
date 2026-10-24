@@ -6,12 +6,12 @@ resume: Mise en place de plateforme de gestion d'incident GLPI
 competences: [c5,c6]
 ---
 
-## Contexte
+##  Contexte
 
 L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant, je présenterais ici la base utilisée pour la simulation d'incident.
 
 
-## Conditions et moyens
+##  Conditions et moyens
 
 Un laptop avec Vmware Workstation, les ISOs Windows Server 2022, Windows 10, debian 12, le plugin Agent GLPI
 
@@ -22,7 +22,7 @@ Un laptop avec Vmware Workstation, les ISOs Windows Server 2022, Windows 10, deb
 Les 3 vm sont dans le même réseau lan10 sur vmware.
 
 
-## Description de l'activité
+##  Description de l'activité
 
 1. Configuration de la machine Debian
 
@@ -30,24 +30,24 @@ Les 3 vm sont dans le même réseau lan10 sur vmware.
 Le serveur GLPI est placé sur le LAN 172.20.1.0/24, le même réseau que le contrôleur de domaine (172.20.1.2). La machine possède une deuxième carte en NAT pour accéder à Internet (téléchargement de GLPI), celle-ci reste en DHCP.
 
 
-#nano /etc/network/interfaces :
-#allow-hotplug ens33
-#iface ens33 inet dhcp
+# nano /etc/network/interfaces :
+# allow-hotplug ens33
+# iface ens33 inet dhcp
 
-#allow-hotplug ens34
-#iface ens34 inet static
-#address 172.20.1.7/24
+# allow-hotplug ens34
+# iface ens34 inet static
+# address 172.20.1.7/24
 
 on redémarre les interfaces 
 
-#systemctl restart networking 
+# systemctl restart networking 
 
 J'installe ensuite php, apache (serveur php pour glpi), mariadb (le moteur de base de données que glpi utilisera)
 # apt install apache2 php libapache2-mod-php mariadb-server -y
 
 Je lance enfin le script d'installation mysql :
 
-#mysql_secure installation 
+# mysql_secure installation 
 
 Enter current password for root (enter for none: entree
 
@@ -89,29 +89,29 @@ MariaDB [(none)]> flush privileges;
 Query OK, 0 rows affected (0.001 sec)
 
 Je télécharge GLPI
-#wget https://github.com/glpi-project/glpi/releases/download/11.0.9/glpi-11.0.9.tgz
+# wget https://github.com/glpi-project/glpi/releases/download/11.0.9/glpi-11.0.9.tgz
 
 Je décompresse le fichier téléchargé dans /var/www/html :
 # tar -xzf glpi-11.0.9.tgz -C /var/www/html
 
 Je donne les droits sur le dossier et les sous dossiers ainsi que les fichiers GLPI au compte et au groupe www-data
-#chown -R www-data:www-data /var/www/html/glpi
-#chmod -R 775 /var/www/html/glpi/
+# chown -R www-data:www-data /var/www/html/glpi
+# chmod -R 775 /var/www/html/glpi/
 
 Note : A partir de GLPI 11 le serveur apache doit pointer vers /var/www/glpi/public, voir la capture d'écran en bas de page pour le fichier de configuration
 
 Pour accéder à l’interface web de GLPI avec le nom de domaine, je crée sur le serveur DNS du contrôleur de domaine (172.20.1.2), dans la zone stadiumcompany.local, un enregistrement de type A : glpi → 172.20.1.7.
 
 Je crée également d’un fichier pem (Privacy Enhanced Mail (PEM)) contenant un certificat autosigné et une clé privée.
-root💀glpi:~# make-ssl-cert /usr/share/ssl-cert/ssleay.cnf  /etc/ssl/private/stadiumcompany.pem
+# make-ssl-cert /usr/share/ssl-cert/ssleay.cnf  /etc/ssl/private/stadiumcompany.pem
 
 Je renseigne le nom d’hôte glpi.stadiumcompany.local, puis les noms alternatifs : DNS:glpi.stadiumcompany.local,IP:172.20.1.7
 
 J'active le module ssl et glpi.conf : 
-#a2enmod ssl
-#systemctl restart apache2
-#a2ensite glpi.conf
-#systemctl reload apache2
+# a2enmod ssl
+# systemctl restart apache2
+# a2ensite glpi.conf
+# systemctl reload apache2
 
 
 A partir de là je peux accèder à glpi via une interface web : https://glpi.stadiumcompany.local
@@ -124,11 +124,10 @@ Je synchronise GLPI à l'AD via l'annuaire LDAP (Configuration>Authentification>
 Je crée 2 utilisateurs (kaiser et césar) que j'importent (utilisateurs>source externe)
 
 Je peux ensuite me connecter via leurs comptes sur glpi dans l'AD stadiumcompany et créer un ticket.
-## Productions et preuves
 
 Pour faire remonter un ordinateur, j'active l'inventaire puis j'installe Agent-GLPI et le fait pointer vers https://glpi.stadiumcompany.local/front/inventory.php.
 
-##Productions et preuves
+## Productions et preuves
 
 Active Directory
 ![Active Directory]({{ "/images/AD.png" | relative_url }})
