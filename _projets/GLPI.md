@@ -35,20 +35,6 @@ nano /etc/network/interfaces
 allow-hotplug ens33
 iface ens33 inet dhcp
 
-allow-hotplug ens34
-iface ens34 inet static
-address 172.20.1.7/24Description de l'activité
-1. Configuration de la machine Debian
-Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
-
-La machine possède une seconde carte réseau en NAT permettant l'accès à Internet pour télécharger les paquets nécessaires.
-
-Configuration du fichier réseau :
-
-nano /etc/network/interfaces
-allow-hotplug ens33
-iface ens33 inet dhcp
-
 
 allow-hotplug ens34
 iface ens34 inet static
