@@ -1,8 +1,9 @@
+---
 title: Mise en place d'une plateforme de gestion d'incident 
 date: 24/10/2026 cadre: Projet de support et mise à disposition de service informatique 
 resume: Mise en place de plateforme de gestion d'incident GLPI 
 competences: [c5,c6]
-
+---
 
 Contexte
 L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant. Je présenterai ici l'infrastructure utilisée pour la simulation d'incidents à l'aide de GLPI.
