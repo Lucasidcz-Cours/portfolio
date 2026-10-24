@@ -9,7 +9,7 @@ competences: [c5,c6]
 Contexte 
 L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant. Je présenterai ici l'infrastructure utilisée pour la simulation d'incidents à l'aide de GLPI.
 
-## Conditions et moyensc##
+## Conditions et moyens
 Un ordinateur portable
 VMware Workstation
 ISO Windows Server 2022
