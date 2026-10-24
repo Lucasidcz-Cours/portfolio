@@ -24,7 +24,7 @@ Un poste client Windows joint au domaine
 Les trois machines virtuelles sont connectées au même réseau virtuel VMware : lan10.
 
 ## Description de l'activité 
-1. Configuration de la machine Debian
+## 1. Configuration de la machine Debian
 Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
 
 La machine possède une seconde carte réseau en NAT permettant l'accès à Internet pour télécharger les paquets nécessaires.
@@ -46,6 +46,7 @@ systemctl restart networking
 Installation d'Apache, PHP et MariaDB :
 
 apt install apache2 php libapache2-mod-php mariadb-server -y
+
 Lancement du script de sécurisation MariaDB :
 
 mysql_secure_installation
@@ -64,7 +65,7 @@ Disallow root login remotely? [Y/n] Y
 Remove test database and access to it? [Y/n] Y
 Reload privilege tables now? [Y/n] Y
 
-2. Installation et configuration de GLPI
+## 2. Installation et configuration de GLPI
 Installation des extensions PHP nécessaires :
 
 apt install php-{ldap,apcu,mysql,mbstring,curl,gd,xml,intl,bz2,zip,bcmath} -y
@@ -124,7 +125,7 @@ Base : dbglpi
 Utilisateur : userglpi
 Mot de passe : userglpi
 
-3. Mise en place de la simulation d'incident
+## 3. Mise en place de la simulation d'incident
 Pour permettre l'authentification des utilisateurs du domaine, GLPI est synchronisé avec l'annuaire LDAP :
 
 Configuration → Authentification → Liaisons LDAP
