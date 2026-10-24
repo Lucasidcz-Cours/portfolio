@@ -80,6 +80,7 @@ Installation des extensions PHP nécessaires :
 
 apt install php-{ldap,apcu,mysql,mbstring,curl,gd,xml,intl,bz2,zip,bcmath} -y
 systemctl restart apache2
+
 Création de la base de données GLPI :
 
 CREATE DATABASE dbglpi;
@@ -90,6 +91,7 @@ IDENTIFIED BY 'userglpi';
 Application des droits :
 
 FLUSH PRIVILEGES;
+
 Téléchargement de GLPI :
 
 wget https://github.com/glpi-project/glpi/releases/download/11.0.9/glpi-11.0.9.tgz
@@ -101,11 +103,13 @@ Attribution des droits :
 
 chown -R www-data:www-data /var/www/html/glpi
 chmod -R 775 /var/www/html/glpi
+
 À partir de GLPI 11, Apache doit pointer vers /var/www/html/glpi/public.
 
 Création d'un enregistrement DNS sur le contrôleur de domaine :
 
 glpi.stadiumcompany.local → 172.20.1.7
+
 Création du certificat SSL autosigné :
 
 make-ssl-cert /usr/share/ssl-cert/ssleay.cnf \
@@ -143,13 +147,16 @@ Mot de passe : userglpi
 Pour permettre l'authentification des utilisateurs du domaine, GLPI est synchronisé avec l'annuaire LDAP :
 
 Configuration → Authentification → Liaisons LDAP
+
 Deux utilisateurs de test sont créés dans Active Directory :
 
 kaiser
 césar
+
 Ces utilisateurs sont ensuite importés dans GLPI via :
 
 Administration → Utilisateurs → Importation depuis une source externe
+
 Ils peuvent ensuite ouvrir des tickets directement depuis leur compte du domaine.
 
 Pour faire remonter automatiquement l'inventaire d'un poste, GLPI Agent est installé puis configuré pour envoyer ses informations à :
