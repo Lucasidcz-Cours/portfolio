@@ -5,10 +5,10 @@ resume: Mise en place de plateforme de gestion d'incident GLPI
 competences: [c5,c6]
 ---
 
-## Contexte
+## Contexte ##
 L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant. Je présenterai ici l'infrastructure utilisée pour la simulation d'incidents à l'aide de GLPI.
 
-## Conditions et moyens
+## Conditions et moyensc##
 Un ordinateur portable
 VMware Workstation
 ISO Windows Server 2022
@@ -22,7 +22,7 @@ Un serveur Debian 12 hébergeant GLPI
 Un poste client Windows joint au domaine
 Les trois machines virtuelles sont connectées au même réseau virtuel VMware : lan10.
 
-## Description de l'activité
+## Description de l'activité ##
 1. Configuration de la machine Debian
 Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
 
