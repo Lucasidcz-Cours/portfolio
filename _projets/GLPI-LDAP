@@ -1,9 +1,8 @@
 ---
-title: "Intitulé du projet"
-date: 2026-10-07
-cadre: "Atelier de professionnalisation"
-resume: "Une phrase : ce que vous avez fait, et pour qui."
-competences: [c2]
+title: Mise en place d'une plateforme de gestion d'incident 
+date: 24/10/2026 cadre: Projet de support et mise à disposition de service informatique 
+resume: Mise en place de plateforme de gestion d'incident GLPI 
+competences: [c5,c6]
 ---
 
 ## Contexte
