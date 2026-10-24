@@ -11,17 +11,27 @@ L'examen final de BTS SIO demande une plateforme informatique mise en place par 
 
 ## Conditions et moyens
 Un ordinateur portable
+
 VMware Workstation
+
 ISO Windows Server 2022
+
 ISO Windows 10
+
 ISO Debian 12
+
 GLPI Agent
 
-Machines virtuelles
+Machines virtuelles :
+
 Un serveur Active Directory hébergeant le domaine stadiumcompany.local
+
 Un serveur Debian 12 hébergeant GLPI
+
 Un poste client Windows joint au domaine
+
 Les trois machines virtuelles sont connectées au même réseau virtuel VMware : lan10.
+
 
 ## Description de l'activité 
 ## 1. Configuration de la machine Debian
