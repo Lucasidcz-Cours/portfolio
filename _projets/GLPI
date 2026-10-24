@@ -5,10 +5,10 @@ resume: Mise en place de plateforme de gestion d'incident GLPI
 competences: [c5,c6]
 ---
 
-Contexte
+## Contexte
 L'examen final de BTS SIO demande une plateforme informatique mise en place par l'étudiant. Je présenterai ici l'infrastructure utilisée pour la simulation d'incidents à l'aide de GLPI.
 
-Conditions et moyens
+## Conditions et moyens
 Un ordinateur portable
 VMware Workstation
 ISO Windows Server 2022
@@ -22,7 +22,7 @@ Un serveur Debian 12 hébergeant GLPI
 Un poste client Windows joint au domaine
 Les trois machines virtuelles sont connectées au même réseau virtuel VMware : lan10.
 
-Description de l'activité
+## Description de l'activité
 1. Configuration de la machine Debian
 Le serveur GLPI est placé sur le réseau 172.20.1.0/24, le même que celui du contrôleur de domaine (172.20.1.2).
 
@@ -154,7 +154,7 @@ Pour faire remonter automatiquement l'inventaire d'un poste, GLPI Agent est inst
 
 https://glpi.stadiumcompany.local/front/inventory.php
 
-Productions et preuves
+## Productions et preuves
 Active Directory
 ![Active Directory]({{ "/images/AD.png" | relative_url }})
 
@@ -176,8 +176,8 @@ Création de ticket par l'utilisateur Kaiser
 Ticket visible dans GLPI
 ![Ticket visible GLPI]({{ "/images/ticketkaiser2.png" | relative_url }})
 
-Ce que j'en retiens
+## Ce que j'en retiens
 Cette activité m'a permis de déployer une solution complète de gestion d'incidents avec GLPI. J'ai mis en œuvre un serveur web Apache, une base de données MariaDB, sécurisé l'accès via HTTPS et intégré l'authentification LDAP avec Active Directory.
 
-Difficulté rencontrée
+## Difficulté rencontrée
 Lors de l'installation de GLPI 11, Apache ne parvenait pas à accéder correctement au répertoire glpi/public. Après analyse de la documentation et de la configuration Apache, l'activation du module rewrite ainsi que l'adaptation du VirtualHost ont permis de résoudre le problème.
