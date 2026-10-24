@@ -100,9 +100,11 @@ Création du certificat SSL autosigné :
 
 make-ssl-cert /usr/share/ssl-cert/ssleay.cnf \
 /etc/ssl/private/stadiumcompany.pem
+
 Nom d'hôte utilisé :
 
 glpi.stadiumcompany.local
+
 Noms alternatifs :
 
 DNS:glpi.stadiumcompany.local
@@ -115,9 +117,11 @@ systemctl restart apache2
 
 a2ensite glpi.conf
 systemctl reload apache2
+
 GLPI devient alors accessible à l'adresse :
 
 https://glpi.stadiumcompany.local
+
 L'assistant d'installation est ensuite utilisé avec les paramètres suivants :
 
 Serveur SQL : localhost
