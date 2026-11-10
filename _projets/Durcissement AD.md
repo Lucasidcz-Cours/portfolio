@@ -3,7 +3,7 @@ title: "Audit et Durcissement d'un Contrôleur de Domaine"
 date: 2026-11-10
 cadre: "Atelier de professionnalisation"
 resume: "Audit d'Active Directory via Pingcastle et durcissement de sécurité"
-competences: [c2, c4]
+competences: [c1, c2, c4]
 ---
 
 ## Contexte
