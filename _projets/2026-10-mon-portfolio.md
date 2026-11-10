@@ -1,6 +1,6 @@
 ---
 title: "Mise en ligne de mon portfolio professionnel"
-date: 2026-10-07
+date: 07/10/2026
 cadre: "Atelier de professionnalisation"
 resume: "Création et publication d'un site personnel gratuit, hébergé sur GitHub Pages, qui présente mes réalisations."
 competences: [c3, c6]
