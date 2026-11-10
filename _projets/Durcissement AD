@@ -1,0 +1,52 @@
+---
+title: "Audit et Durcissement Contrôleur de Domaine"
+date: 2026-11-10
+cadre: "Atelier de professionnalisation"
+resume: "Audit d'Active Directory via Pingcastle et durcissement de sécurité"
+competences: [c2, c4]
+---
+
+## Contexte
+
+Qui a demandé quoi, dans quelle organisation, et pourquoi c'était nécessaire.
+
+## Conditions et moyens
+
+Le matériel, les logiciels, seul ou en équipe.
+
+## Description de l'activité
+
+1. Première étape, avec la commande ou le réglage réellement employé.
+2. Deuxième étape.
+
+## Productions et preuves
+
+![Ce que montre la capture]({{ "/images/cyberad1.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad2.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad3.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad4.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad5.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad6.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad7.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad8.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad9.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad10.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad11.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad12.png" | relative_url }})
+
+![Ce que montre la capture]({{ "/images/cyberad13.png" | relative_url }})
+
+## Ce que j'en retiens
+
+Une difficulté rencontrée et la façon dont vous l'avez réglée.
